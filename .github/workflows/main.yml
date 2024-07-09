@@ -1,0 +1,33 @@
+name: Convert Figma Tokens to CSS
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install style-dictionary
+
+      - name: Download Figma token file (optional)
+        uses: actions/download-artifact@v3  # If Figma tokens are stored in a separate repo
+        with:
+          name: design-tokens
+          path: tokens/
+
+      - name: Generate CSS from tokens
+        run: npx style-dictionary build
+
+      - name: Upload generated CSS (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: design-tokens-css
+          path: tokens/*.css
