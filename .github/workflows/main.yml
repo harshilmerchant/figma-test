@@ -1,8 +1,7 @@
 name: Convert Figma Tokens to CSS
 
 on:
-  push:
-    branches: [ main ]  # Change to your desired branch(es)
+  workflow_dispatch
 
 jobs:
   download-tokens:  # New job for downloading Figma tokens
